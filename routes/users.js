@@ -9,9 +9,8 @@ router.get('/user-signin',users_controller.signin);
 router.get('/user-signup',users_controller.signup);
 router.post('/create',users_controller.create_user);
 router.post('/create-session',users_controller.create_session);
+router.get('/delete-session',users_controller.delete_session);
 
-router.get('/profile',(req,res)=>{
-    res.send('<h1>profile accesed</h1>')
-})
+router.get('/profile',users_controller.profile);
 
 module.exports  = router;

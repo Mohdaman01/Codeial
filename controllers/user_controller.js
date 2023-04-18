@@ -52,13 +52,33 @@ module.exports.create_session = async function(req,res){
 
             }
             res.cookie('user_id',user.id);
-            res.redirect('/users');
+            res.redirect('/users/profile')
 
          }else{
             console.log('email do not matched!!');
             return res.redirect('back'); 
-         }
+         } 
     }catch(error){
         console.log(error);
+    } 
+}
+
+module.exports.profile = async function(req,res){
+    if(req.cookies.user_id){
+        const user = await User.findById(req.cookies.user_id);
+        if(user){
+            console.log(user);
+            res.render('profile',{
+            title:'profile',
+            user:user
+        });
+        } 
+    }else{ 
+        res.redirect('back');
     }
+
+}
+
+module.exports.delete_session = function(req,res){
+    return res.clearCookie(req.cookies.user_id);
 }
