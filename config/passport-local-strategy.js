@@ -3,7 +3,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/users');
-const { JSONCookie } = require('cookie-parser');
 
 passport.use(new LocalStrategy({
     usernameField:'email',
