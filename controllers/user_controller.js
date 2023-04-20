@@ -5,11 +5,17 @@ module.exports = function(req,res){
 }
 
 module.exports.signin = function(req,res){
-    res.render('user_signin');
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+    return res.render('user_signin');
 }
 
 module.exports.signup = function(req,res){
-    res.render('user_signup');
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+    return res.render('user_signup');
 }
 
 module.exports.create_user =  async function(req,res){
@@ -40,45 +46,20 @@ module.exports.create_user =  async function(req,res){
 }
 
 module.exports.create_session = async function(req,res){
-    try{
-         const user = await User.findOne({
-            email:req.body.email
-        });
-         console.log(user);
-         if(user){
-            if(user.passward != req.body.passward){
-                console.log('passward did not matched!!!')
-                return res.redirect('back'); 
-
-            }
-            res.cookie('user_id',user.id);
-            res.redirect('/users/profile')
-
-         }else{
-            console.log('email do not matched!!');
-            return res.redirect('back'); 
-         } 
-    }catch(error){
-        console.log(error);
-    } 
+     return res.redirect('/');
 }
 
 module.exports.profile = async function(req,res){
-    if(req.cookies.user_id){
-        const user = await User.findById(req.cookies.user_id);
-        if(user){
-            console.log(user);
-            res.render('profile',{
-            title:'profile',
-            user:user
-        });
-        } 
-    }else{ 
-        res.redirect('back');
-    }
-
+    return res.render('profile',{
+        title:"profile"
+    })
 }
 
-module.exports.delete_session = function(req,res){
-    return res.clearCookie(req.cookies.user_id);
+module.exports.destroySession = function(req,res,next){
+    req.logout(function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/");
+      });
 }
