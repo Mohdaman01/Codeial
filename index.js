@@ -2,12 +2,14 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
+const bodyParser = require('body-parser');
 // const cookies = require('cookie-parser');
 const db = require('./config/mongoose');
 const MongoStore = require('connect-mongo');
 const port  = 3000;
 
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(express.urlencoded());
 // app.use(cookies());
 app.use(expressLayouts);
 app.use(express.static('./assets'));

@@ -1,8 +1,12 @@
 const passport = require('passport');
 
+const bodyParser = require('body-parser');
+
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/users');
+
+passport.use(bodyParser.urlencoded({ extended: false }));
 
 passport.use(new LocalStrategy({
     usernameField:'email',
@@ -30,9 +34,9 @@ passport.serializeUser(function(user,done){
     done(null,user.id);
 });
 
-passport.deserializeUser(function(id,done){
+passport.deserializeUser(async function(id,done){
     try{
-        const user = User.findById(id);
+        const user = await User.findById(id);
         if(user){
             return done(null,user);
         }    
