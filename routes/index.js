@@ -8,4 +8,8 @@ Router.get('/',home_controller);
 
 Router.use('/users',require('./users'));
 
+Router.use('/posts',require('./post'));
+
+Router.use('/comments',require('./comments'));
+
 module.exports = Router;

@@ -5,11 +5,21 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const db = require('./config/mongoose');
 const MongoStore = require('connect-mongo');
+const sassMiddleware = require('node-sass-middleware');
 const port  = 3000;
+
+app.use(sassMiddleware({
+    src:'./assets/scss', 
+    dest:'./assets/css',
+    debug:true,
+    outputStyle:'extended',
+    prefix:'/css'  
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressLayouts);
 app.use(express.static('./assets'));
+// app.use('assets', express.static(path.join(__dirname, "assets")));
 
 
 app.set('view engine','ejs');
