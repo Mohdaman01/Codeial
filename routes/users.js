@@ -8,7 +8,9 @@ const users_controller = require('../controllers/user_controller');
 router.get('/',users_controller);
 router.get('/user-signin',users_controller.signin);
 router.get('/user-signup',users_controller.signup);
-router.get('/profile',passport.checkAuthentication,users_controller.profile);
+router.get('/profile/:id',passport.checkAuthentication,users_controller.profile);
+router.post('/update/:id',passport.checkAuthentication,users_controller.update);
+router.get('/delete-User/:id',passport.checkAuthentication,users_controller.destroy_user);
 router.post('/create',users_controller.create_user);
 
 // use passport as a middleware to authenicate

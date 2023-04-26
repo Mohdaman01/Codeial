@@ -1,4 +1,6 @@
 const User = require('../models/users');
+const Post =  require('../models/post');
+const Comment = require('../models/comment');
 
 module.exports = function(req,res){
     return res.render('user');
@@ -50,16 +52,45 @@ module.exports.create_session = async function(req,res){
 }
 
 module.exports.profile = async function(req,res){
+    const user = await User.findById(req.params.id);
     return res.render('profile',{
-        title:"profile"
+        title:"profile",
+        profile_user:user
     })
 }
 
+module.exports.update = async function(req,res){
+    if(req.user.id == req.params.id){
+        await User.findByIdAndUpdate(req.params.id,req.body);
+        return res.redirect('back');
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
+
+module.exports.destroy_user = async function(req,res){
+    if(req.user.id == req.params.id){
+        
+        await Post.findOneAndDelete({user:req.params.id});
+        await Comment.deleteMany({user: req.params.id})
+        await User.findByIdAndDelete(req.params.id);
+        
+        req.logout(function(err) {
+            if (err) {
+              return next(err);
+            }
+            return res.redirect("/");
+          });
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
+ 
 module.exports.destroySession = function(req,res,next){
     req.logout(function(err) {
         if (err) {
           return next(err);
         }
-        res.redirect("/");
+        return res.redirect("/");
       });
 }

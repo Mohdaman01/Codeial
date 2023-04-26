@@ -1,8 +1,22 @@
 <header><a href="/">home</a></header>
 
-<h1>Users/profile</h1>
+<h1>Users/profile</h1> 
 <%if(locals.user){%>
-    <h3>Name: <%=user.name%></p>
-    <h3>email: <%=user.email%></h3>
+    <%if(locals.user.id == profile_user.id){%> 
+        <h3>Name: <%=profile_user.name%></p>
+        <h3>email: <%=profile_user.email%></h3>
+        <br>
+        <form action="/users/update/<%=profile_user.id%>" method="post">
+            <input type="text" name="name" placeholder="your name" value="<%=profile_user.name%>" required/><br>
+            <input type="email" name="email" placeholder="your email" value="<%=profile_user.email%>" required/><br>
+            <input type="submit" value="Update">
+        </form>
+        <br>
+        <br>
+        <a href="/users/delete-User/<%=profile_user.id%>">Delete Account</a>
+    <%}else{%>
+        <h3>Name: <%=profile_user.name%></p>
+        <h3>email: <%=profile_user.email%></h3>
+    <%}%>
 <%}%>
 

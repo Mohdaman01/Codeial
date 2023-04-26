@@ -1,6 +1,6 @@
 <header>
     <%if(locals.user){%>
-    <a href="/users/profile">profile</a>
+    <a href="/users/profile/<%=locals.user.id%>">profile</a>
     <%}%>
 </header>
 <h1>Codeial home page</h1>
@@ -15,39 +15,16 @@
 <div class="post-list-container">
     <ul>
         <%for(post of posts){%>
-        <li>
-            <p>
-                <%if(locals.user && locals.user.id == post.user.id){%>
-                <small><a href="/posts/destroy/<%=post.id%>">X</a></small>
-                <%}%>
-                <%=post.content%>
-                <br>
-                <small><%=post.user.name%></small>
-            </p>
-            <div class="post-comments">
-                <%if(locals.user){%>
-                    <form action="/comments/create" method="post">
-                        <input type="text" name="content" placeholder="Type here to add comment"/>
-                        <input type="hidden" name="post" value="<%=post._id%>">
-                        <input type="submit" value="Add Comment">
-                    </form>
-                <%}%>
+        <%-include('_posts')-%>
+        <%}%>
+    </ul>
+</div>
 
-                <div class="post-comments-list">
-                    <ul id="post-comments -<%=post._id%>">
-                        <%for(comment of post.comments){%>
-                            <p>
-                                <%=comment.content%>
-                                <br>
-                                <small>
-                                    <%=comment.user.name%>
-                                </small>
-                            </p>
-                        <%}%>
-                    </ul>
-                </div>
-            </div>
-            </li>
+<div class="users-container">
+    <h1>Users List</h1>
+    <ul>
+        <%for(user of all_Users){%>
+            <li><a href="/users/profile/<%=user.id%>"><%=user.name%></a></li>
         <%}%>
     </ul>
 </div>
