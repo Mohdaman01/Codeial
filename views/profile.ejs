@@ -1,4 +1,3 @@
-<header><a href="/">home</a></header>
 
 <h1>Users/profile</h1> 
 <%if(locals.user){%>
@@ -11,7 +10,6 @@
             <input type="email" name="email" placeholder="your email" value="<%=profile_user.email%>" required/><br>
             <input type="submit" value="Update">
         </form>
-        <br>
         <br>
         <a href="/users/delete-User/<%=profile_user.id%>">Delete Account</a>
     <%}else{%>
