@@ -1,0 +1,21 @@
+#home-container {
+  display: flex; }
+  #home-container .create-post {
+    margin-left: 10%;
+    margin-top: 3em; }
+    #home-container .create-post #text-content {
+      border-radius: 10px;
+      padding: .8em;
+      resize: none;
+      margin-bottom: 1em; }
+    #home-container .create-post #post-form input {
+      background-color: #5a5a61;
+      color: white;
+      width: 5.5em;
+      height: 2em;
+      border-radius: 10px;
+      border: none; }
+  #home-container .users-container {
+    margin-left: 15%;
+    padding: 2em;
+    border-left: 2px solid lightgray; }

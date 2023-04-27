@@ -1,7 +1,7 @@
 <li>
     <p>
         <%if(locals.user && locals.user.id == post.user.id){%>
-        <small><a href="/posts/destroy/<%=post.id%>"><i class="fa-solid fa-square-xmark"></i></i></a></small>
+        <small><a href="/posts/destroy/<%=post.id%>"><i class="fa-solid fa-circle-xmark"></i></a></small>
         <%}%>
         <%=post.content%>
         <br>
