@@ -9,11 +9,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <%- style %>
     
-</head>
+</head>  
 <body>
 
     <%- include('_header')%>
-    <%- body %>
+
+    <%if(flash.success && flash.success.length > 0){%>
+        <%=flash.success%>
+    <%}%>
+
+    <main id="layout-main">
+
+        <%- body %>
+
+    </main>
+    
     <%- include('_footer')%>
 
     <!-- custom js file -->

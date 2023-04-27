@@ -3,9 +3,12 @@ const path = require('path');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const db = require('./config/mongoose');
 const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
+const flash = require('connect-flash');
+const customMiddleware = require('./config/middleware');
 const port  = 3000;
 
 app.use(sassMiddleware({
@@ -13,14 +16,13 @@ app.use(sassMiddleware({
     dest:'./assets/css',
     debug:true,
     outputStyle:'extended',
-    prefix:'/css'  
+    prefix:'/css'   
 }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(expressLayouts);
 app.use(express.static('./assets'));
-// app.use('assets', express.static(path.join(__dirname, "assets")));
-
 
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
@@ -49,6 +51,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMiddleware.setFlash);
+
 app.use('/',require('./routes')); 
 
 

@@ -2,11 +2,12 @@ const Post =  require('../models/post');
 const Comment = require('../models/comment');
 
 module.exports.create_post = async function(req,res){
-    await Post.create({
-        content:req.body.content,
-        user:req.user._id
-    })
-
+    if(req.body.content.length > 0){
+        await Post.create({
+            content:req.body.content,
+            user:req.user._id
+        })  
+    }   
     return res.redirect('back');
 } 
 module.exports.destroy_post = async function(req,res){

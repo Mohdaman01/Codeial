@@ -16,7 +16,7 @@ module.exports.signin = function(req,res){
 module.exports.signup = function(req,res){
     if(req.isAuthenticated()){
         return res.redirect('/users/profile');
-    }
+    }  
     return res.render('user_signup');
 }
 
@@ -48,7 +48,8 @@ module.exports.create_user =  async function(req,res){
 }
 
 module.exports.create_session = async function(req,res){
-     return res.redirect('/');
+    req.flash('success','Logged in Successfully!');
+    return res.redirect('/');
 }
 
 module.exports.profile = async function(req,res){
@@ -87,10 +88,14 @@ module.exports.destroy_user = async function(req,res){
 }
  
 module.exports.destroySession = function(req,res,next){
+    
     req.logout(function(err) {
+
         if (err) {
           return next(err);
         }
+        
+        req.flash('success','Logged out Succesfully!');
         return res.redirect("/");
       });
 }
