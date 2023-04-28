@@ -23,7 +23,8 @@ module.exports.signup = function(req,res){
 module.exports.create_user =  async function(req,res){
     console.log(req.body);
      if(req.body.passward != req.body.confirm_password){
-        console.log('passward do not match');
+        // console.log('passward do not match');
+        req.flash('error','passwards do not match!')
         return res.redirect('back');
 
      }else{ 
@@ -34,14 +35,18 @@ module.exports.create_user =  async function(req,res){
 
             if(!user){
                 await User.create(req.body); 
+                req.flash('success','Account created successfully!');
                 return res.redirect('/users/user-signin');
 
             }else{
-                console.log('error this email is all ready registerd!!!')
+                // console.log('error this email is all ready registerd!!!');
+                req.flash('error','This email is all ready registerd!');
                 return res.redirect('back');
             }
         }catch(error){
             console.log('error: ',error);
+            req.flash('error',error);
+            return res.redirect('back');
         }
 
      }    
@@ -63,8 +68,10 @@ module.exports.profile = async function(req,res){
 module.exports.update = async function(req,res){
     if(req.user.id == req.params.id){
         await User.findByIdAndUpdate(req.params.id,req.body);
+        req.flash('success','Profile updated Successfully!')
         return res.redirect('back');
     }else{
+        req.flash('error','You are Unauthorized');
         return res.status(401).send('Unauthorized');
     }
 }
@@ -82,6 +89,8 @@ module.exports.destroy_user = async function(req,res){
             }
             return res.redirect("/");
           });
+        req.flash('success','Account deleted Successfully!');
+        return res.redirect('/');
     }else{
         return res.status(401).send('Unauthorized');
     }

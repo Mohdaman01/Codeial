@@ -10,12 +10,14 @@ passport.use(bodyParser.urlencoded({ extended: false }));
 
 passport.use(new LocalStrategy({
     usernameField:'email',
-    passwordField:'passward'
+    passwordField:'passward',
+    passReqToCallback:true
 },
-async function(email,passward,done){
+async function(req,email,passward,done){
     try{
             const user = await User.findOne({email:email});
             if(!user || user.passward != passward){
+                req.flash('error','Invalid Username/Password');
                 console.log('error in finding user ---> Passport');
                 return done(null,false);
             }
@@ -23,6 +25,7 @@ async function(email,passward,done){
             
     }catch(error){
         console.log(error);
+        req.flash('error',error);
         return done(error);
     }
     
