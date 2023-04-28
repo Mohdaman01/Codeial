@@ -5,6 +5,7 @@
         margin-top: 3em;
         #text-content{
             border-radius: 10px;
+            border: 2px solid lightgray;
             padding: .8em;
             resize: none;
             margin-bottom: 1em;
@@ -12,12 +13,16 @@
         
         #post-form{
             input{
-                background-color: rgb(90, 90, 97);
+                background-color: rgb(58, 58, 118);
                 color: white;
+                cursor: pointer;
                 width:5.5em;
                 height: 2em;
                 border-radius: 10px;
                 border:none;
+                &:hover{
+                    background-color: red;
+                }
             }
         }
         

@@ -5,16 +5,20 @@
     margin-top: 3em; }
     #home-container .create-post #text-content {
       border-radius: 10px;
+      border: 2px solid lightgray;
       padding: .8em;
       resize: none;
       margin-bottom: 1em; }
     #home-container .create-post #post-form input {
-      background-color: #5a5a61;
+      background-color: #3a3a76;
       color: white;
+      cursor: pointer;
       width: 5.5em;
       height: 2em;
       border-radius: 10px;
       border: none; }
+      #home-container .create-post #post-form input:hover {
+        background-color: red; }
   #home-container .users-container {
     margin-left: 15%;
     padding: 2em;

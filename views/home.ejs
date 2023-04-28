@@ -7,10 +7,11 @@
         <%if(locals.user){%>
         <form action="/posts/create" method="post" id="post-form">
             <textarea name="content" id="text-content" cols="50" rows="6" placeholder="Write text here" required></textarea>
+            <br>
             <input type="submit" value="Post"/>
         </form>
         <%}%>
-
+        <br>
         <div class="post-list-container">
             <ul>
                 <%for(post of posts){%> 
