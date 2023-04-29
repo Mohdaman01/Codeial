@@ -1,6 +1,5 @@
 class PostComments{
-    // constructor is used to initialize the instance of the class whenever a new instance is created
-    constructor(postId){
+     constructor(postId){
         this.postId = postId;
         this.postContainer = $(`#post-${postId}`);
         this.newCommentForm = $(`#post-${postId}-comments-form`);
@@ -64,7 +63,7 @@ class PostComments{
                             </small>
                         </p>    
 
-                </li>`);
+                </li>`); 
     }
 
 

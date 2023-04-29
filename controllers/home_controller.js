@@ -4,7 +4,10 @@ const User = require('../models/users');
 
 module.exports = async function(req,res){
 
-   const posts = await Post.find({}).populate('user').populate({
+   const posts = await Post.find({})
+   .sort('-createdAt')
+   .populate('user')
+   .populate({
         path:'comments',
         populate:{
             path:'user'
