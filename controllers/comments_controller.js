@@ -5,7 +5,7 @@ module.exports.create = async function(req,res){
     const post = await Post.findById(req.body.post);
     if(post){
         try{
-            const comment = await Comment.create({
+            let comment = await Comment.create({
                 content:req.body.content,
                 post:req.body.post,
                 user:req.user._id
@@ -13,6 +13,19 @@ module.exports.create = async function(req,res){
 
             post.comments.push(comment);
             post.save();
+
+            if (req.xhr){
+            
+                comment = await comment.populate('user', 'name');
+    
+                return res.status(200).json({
+                    data: {
+                        comment: comment
+                    },
+                    message: "Post created!"
+                });
+            }
+
             req.flash('success','Commented Successfully!');
             res.redirect('/');
         }catch(error){
@@ -29,7 +42,17 @@ module.exports.destroy_comment = async function(req,res){
         if((String(comment.user) ==  req.user.id) || String(post.user) == req.user.id){
             const postID = comment.post;
             await Comment.findByIdAndDelete(req.params.id);
-            await Post.findByIdAndUpdate(postID,{$pull:{comments:req.params.id}})
+            await Post.findByIdAndUpdate(postID,{$pull:{comments:req.params.id}});
+
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
+
             req.flash('success','Comment deleted Successfully!')
             return res.redirect('back');
             }else{

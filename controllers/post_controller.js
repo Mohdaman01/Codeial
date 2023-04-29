@@ -5,17 +5,18 @@ const User = require('../models/users');
 module.exports.create_post = async function (req, res) {
     try {
         if (req.body.content.length > 0) {
-            const post = await Post.create({
+            let post = await Post.create({
                 content: req.body.content,
                 user: req.user._id
             })
-            const user = await User.findById(req.user._id);
 
         if(req.xhr){
+
+            post = await post.populate('user','name');
+
             return res.status(200).json({
                 data:{
-                    post:post,
-                    user:user.name
+                    post:post
                 },
                 message: "Post created!"
             })
