@@ -1,2 +1,2 @@
 node_modules/
-folder_to_ignore/uploads
+uploads/*
