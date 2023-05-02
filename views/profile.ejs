@@ -1,24 +1,44 @@
-
-<h1>Users/profile</h1>
+<head>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<h1 class="text-center">Profile</h1>
 <%if(locals.user.avatar){%>
-    <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" width="100px">
-<%}%>
-<%if(locals.user){%>
-    <%if(locals.user.id == profile_user.id){%> 
-        <h3>Name: <%=profile_user.name%></p>
-        <h3>email: <%=profile_user.email%></h3>
-        <br>
-        <form action="/users/update/<%=profile_user.id%>" enctype="multipart/form-data" method="post">
-            <input type="text" name="name" placeholder="your name" value="<%=profile_user.name%>" required/><br>
-            <input type="email" name="email" placeholder="your email" value="<%=profile_user.email%>" required/><br>
-            <input type="file" name="avatar" placeholder="profile picture">
-            <input type="submit" value="Update">
-        </form>
-        <br>
-        <a href="/users/delete-User/<%=profile_user.id%>">Delete Account</a>
-    <%}else{%>
-        <h3>Name: <%=profile_user.name%></p>
-        <h3>email: <%=profile_user.email%></h3>
+    <div class="dp-container">
+        <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" class="dp"/>
+        <a href="/users/delete-avatar/<%=profile_user.id%>"><i class="fas fa-id-card fa-lg"></i> Delete</a>
+    </div>
     <%}%>
-<%}%>
 
+        <%if(locals.user){%>
+            <%if(locals.user.id==profile_user.id){%>
+                <div class="info-container">
+                    <div class="user-info">
+                        <h3>Name: <%=profile_user.name%></h3>
+                        <h3>email: <%=profile_user.email%></h3>
+                    </div>
+                    <br>
+                    <form action="/users/update/<%=profile_user.id%>" enctype="multipart/form-data"
+                                method="post">
+                        <input type="text" name="name" placeholder="your name" value="<%=profile_user.name%>" required /><br>
+                        <input type="email" name="email" placeholder="your email"value="<%=profile_user.email%>" required /><br>
+                        <label for="avatar">Select profie picture: </label><br>
+                        <input type="file" name="avatar" placeholder="profile picture">
+                        <br>
+                        <input type="submit" value="Update">
+                    </form>
+                    <br>
+                    <div class="delete-user-button">
+                        <a href="/users/delete-User/<%=profile_user.id%>"><i class="fa-solid fa-user-slash"></i></a><br>
+                    </div>
+                    <label for="">Delete profile</label>
+                </div>
+
+             <%}else{%>
+
+                    <div class="info-container">
+                        <h3>Name: <%=profile_user.name%></h3>
+                        <h3>email: <%=profile_user.email%></h3>
+                    </div>
+                    
+             <%}%>
+     <%}%>

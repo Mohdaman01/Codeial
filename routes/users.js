@@ -12,6 +12,7 @@ router.get('/profile/:id',passport.checkAuthentication,users_controller.profile)
 router.post('/update/:id',passport.checkAuthentication,users_controller.update);
 router.get('/delete-User/:id',passport.checkAuthentication,users_controller.destroy_user);
 router.post('/create',users_controller.create_user);
+router.get('/delete-avatar/:id',users_controller.destroyAvatar);
 
 // use passport as a middleware to authenicate
 

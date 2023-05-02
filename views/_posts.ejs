@@ -1,9 +1,12 @@
+<head>
+    <link rel="stylesheet" href="/css/_posts.css">
+</head>
 <li id="post-<%=post._id%>">
     <p>
         <%if(locals.user && locals.user.id == post.user.id){%>
-        <small><a href="/posts/destroy/<%=post.id%>" class="delete-post-button"><i class="fa-solid fa-circle-xmark"></i></a></small>
+            <small><a href="/posts/destroy/<%=post.id%>" class="delete-post-button"><i class="fa-solid fa-circle-xmark"></i></a></small>
         <%}%>
-        <%=post.content%>
+        <h3><%=post.content%></h3>
         <br>
         <small><%=post.user.name%></small>
     </p>

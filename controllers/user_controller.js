@@ -77,7 +77,7 @@ module.exports.update = async function (req, res) {
                 
                 user.name = req.body.name;
                 user.email = req.body.email;
-
+ 
                 if (req.file){
 
                     if (user.avatar){
@@ -103,16 +103,46 @@ module.exports.update = async function (req, res) {
     }
 }
 
+module.exports.destroyAvatar = async function(req,res){
+    try{
+        const user = await User.findById(req.params.id);
+         
+        if(user.avatar){
+
+            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+
+            user.avatar = "";
+
+            user.save();
+
+            req.flash('success', 'profile picture deleted!');
+
+            return res.redirect('back');
+
+        }else{
+            req.flash('error', 'You are Unauthorized');
+            return res.status(401).send('Unauthorized');
+        } 
+    }catch(err){
+        console.log(err);
+        return res.redirect('back');
+    }
+}
+
 module.exports.destroy_user = async function (req, res) {
     if (req.user.id == req.params.id) {
 
-        await Post.findOneAndDelete({ user: req.params.id });
         await Comment.deleteMany({ user: req.params.id })
+        await Post.findOneAndDelete({ user: req.params.id });
+        let user = await User.findById(req.params.id);
+        if (user.avatar){
+            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+        }
         await User.findByIdAndDelete(req.params.id);
 
         req.logout(function (err) {
             if (err) {
-                return next(err);
+                return console.log('delete-user-error: ',err);
             }
             return res.redirect("/");
         });

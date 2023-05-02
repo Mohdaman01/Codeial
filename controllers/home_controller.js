@@ -12,7 +12,7 @@ module.exports = async function(req,res){
         populate:{
             path:'user'
         }
-    }).exec();
+    });
 
     const users = await User.find({});
 
