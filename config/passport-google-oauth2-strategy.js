@@ -3,9 +3,12 @@ const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');
 const User = require('../models/users');
 
+const dotenv = require('dotenv'); 
+dotenv.config(); 
+
 passport.use(new googleStrategy({
-    clientID:"377794129190-kne15m165hv2sojl9v3psqb27do4gspk.apps.googleusercontent.com",
-    clientSecret:"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",
+    clientID:process.env.clientID,
+    clientSecret:process.env.clientSecret,
     callbackURL:"http://localhost:3000/users/auth/google/callback"
 }, async function(accessToken,refreshToken,profile,done){
     console.log(profile);
@@ -20,7 +23,7 @@ passport.use(new googleStrategy({
                 passward: crypto.randomBytes(20).toString('hex'),
                 avatar:profile._json.picture
             });
-            return done(null,user);
+            return done(null,user); 
         }
     }catch(err){
         console.log('Error in google strategy-passport',err);
