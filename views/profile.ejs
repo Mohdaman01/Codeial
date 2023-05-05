@@ -7,7 +7,12 @@
         <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" class="dp"/>
         <a href="/users/delete-avatar/<%=profile_user.id%>"><i class="fas fa-id-card fa-lg"></i> Delete</a>
     </div>
-    <%}%>
+    <%}else if(locals.user.avatarGoogle){%>
+        <div class="dp-container">
+            <img src="<%=locals.user.avatarGoogle%>" alt="<%=locals.user.name%>" class="dp"/>
+            <a href="/users/delete-avatar/<%=profile_user.id%>"><i class="fas fa-id-card fa-lg"></i> Delete</a>
+        </div>
+    <%}%>    
 
         <%if(locals.user){%>
             <%if(locals.user.id==profile_user.id){%>

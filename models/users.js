@@ -20,6 +20,9 @@ const userSchema = mongoose.Schema({
     },
     avatar:{
         type:String
+    },
+    avatarGoogle:{
+        type:String
     }
 },{
     timestamps:true

@@ -20,7 +20,7 @@ passport.use(new googleStrategy({
                 name:profile.displayName,
                 email:profile.emails[0].value,
                 passward: crypto.randomBytes(20).toString('hex'),
-                avatar:profile._json.picture
+                avatarGoogle:profile._json.picture
             });
             return done(null,user); 
         }

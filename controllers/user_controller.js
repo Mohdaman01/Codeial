@@ -79,6 +79,10 @@ module.exports.update = async function (req, res) {
                 user.email = req.body.email;
  
                 if (req.file){
+
+                    if(user.avatarGoogle){
+                        user.avatarGoogle = "";
+                    }
  
                     if (user.avatar){
                         fs.unlinkSync(path.join(__dirname, '..', user.avatar));
@@ -106,6 +110,15 @@ module.exports.update = async function (req, res) {
 module.exports.destroyAvatar = async function(req,res){
     try{
         const user = await User.findById(req.params.id);
+
+        if(user.avatarGoogle){
+
+            user.avatarGoogle="";
+
+            user.save();
+
+            return res.redirect('back');
+        }
          
         if(user.avatar){
 
@@ -142,7 +155,7 @@ module.exports.destroy_user = async function (req, res) {
 
         req.logout(function (err) {
             if (err) {
-                return console.log('delete-user-error: ',err);
+                return console.log('delete-user-error: ',err); 
             }
             return res.redirect("/");
         });
