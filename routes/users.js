@@ -17,13 +17,16 @@ router.get('/delete-avatar/:id',users_controller.destroyAvatar);
 // use passport as a middleware to authenicate
 
 router.post('/create-session',passport.authenticate(
-    'local',
+    'local', 
     {failureRedirect: '/users/user-signin'}
 ),users_controller.create_session);
 
 // logout user 
 
 router.get('/logout-user',users_controller.destroySession);
+
+router.get('/auth/google', passport.authenticate('google',{scope: ['profile', 'email']}));
+router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect: '/users/user-signin'}),users_controller.create_session);
 
 
 
