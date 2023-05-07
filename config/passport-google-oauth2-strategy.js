@@ -16,13 +16,13 @@ passport.use(new googleStrategy({
         if(user){
             return done(null,user);
         }else{
-            const user = await User.create({
+            const Newuser = await User.create({
                 name:profile.displayName,
                 email:profile.emails[0].value,
                 passward: crypto.randomBytes(20).toString('hex'),
                 avatarGoogle:profile._json.picture
             });
-            return done(null,user); 
+            return done(null,Newuser); 
         }
     }catch(err){
         console.log('Error in google strategy-passport',err);

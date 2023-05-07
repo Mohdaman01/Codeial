@@ -2,48 +2,60 @@
     <link rel="stylesheet" href="/css/profile.css">
 </head>
 <h1 class="text-center">Profile</h1>
-<%if(locals.user.avatar){%>
-    <div class="dp-container">
-        <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" class="dp"/>
-        <a href="/users/delete-avatar/<%=profile_user.id%>"><i class="fas fa-id-card fa-lg"></i> Delete</a>
-    </div>
-    <%}else if(locals.user.avatarGoogle){%>
+<%if(locals.user){%>
+    <%if(profile_user.avatar){%>
         <div class="dp-container">
-            <img src="<%=locals.user.avatarGoogle%>" alt="<%=locals.user.name%>" class="dp"/>
-            <a href="/users/delete-avatar/<%=profile_user.id%>"><i class="fas fa-id-card fa-lg"></i> Delete</a>
-        </div>
-    <%}%>    
-
-        <%if(locals.user){%>
+            <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" class="dp" />
             <%if(locals.user.id==profile_user.id){%>
-                <div class="info-container">
-                    <div class="user-info">
-                        <h3>Name: <%=profile_user.name%></h3>
-                        <h3>Email: <%=profile_user.email%></h3>
-                    </div>
-                    <br>
-                    <form action="/users/update/<%=profile_user.id%>" enctype="multipart/form-data"
-                                method="post">
-                        <input type="text" name="name" placeholder="your name" value="<%=profile_user.name%>" required /><br>
-                        <input type="email" name="email" placeholder="your email"value="<%=profile_user.email%>" required /><br>
-                        <label for="avatar">Select profie picture: </label><br>
-                        <input type="file" name="avatar" placeholder="profile picture">
-                        <br>
-                        <input type="submit" value="Update">
-                    </form>
-                    <br>
-                    <div class="delete-user-button">
-                        <a href="/users/delete-User/<%=profile_user.id%>"><i class="fa-solid fa-user-slash"></i></a><br>
-                    </div>
-                    <label for="">Delete profile</label>
-                </div>
+                <a href="/users/delete-avatar/<%=profile_user.id%>"><i class="fas fa-id-card fa-lg"></i> Delete</a>
+                <%}%>
+        </div>
+        <%}else if(profile_user.avatarGoogle){%>
+            <div class="dp-container">
+                <img src="<%=profile_user.avatarGoogle%>" alt="<%=profile_user.name%>" class="dp" />
+                <%if(locals.user.id==profile_user.id){%>
+                    <a href="/users/delete-avatar/<%=profile_user.id%>"><i class="fas fa-id-card fa-lg"></i> Delete</a>
+                    <%}%>
+            </div>
+            <%}%>
+                <%}%>
+                    <%if(locals.user){%>
+                        <%if(locals.user.id==profile_user.id){%>
+                            <div class="info-container">
+                                <div class="user-info">
+                                    <h3>Name: <%=profile_user.name%>
+                                    </h3>
+                                    <h3>Email: <%=profile_user.email%>
+                                    </h3>
+                                </div>
+                                <br>
+                                <form action="/users/update/<%=profile_user.id%>" enctype="multipart/form-data"
+                                    method="post">
+                                    <input type="text" name="name" placeholder="your name"
+                                        value="<%=profile_user.name%>" required /><br>
+                                    <input type="email" name="email" placeholder="your email"
+                                        value="<%=profile_user.email%>" required /><br>
+                                    <label for="avatar">Select profie picture: </label><br>
+                                    <input type="file" name="avatar" placeholder="profile picture">
+                                    <br>
+                                    <input type="submit" value="Update">
+                                </form>
+                                <br>
+                                <div class="delete-user-button">
+                                    <a href="/users/delete-User/<%=profile_user.id%>"><i
+                                            class="fa-solid fa-user-slash"></i></a><br>
+                                </div>
+                                <label for="">Delete profile</label>
+                            </div>
 
-             <%}else{%>
+                            <%}else{%>
 
-                    <div class="info-container">
-                        <h3>Name: <%=profile_user.name%></h3>
-                        <h3>email: <%=profile_user.email%></h3>
-                    </div>
-                    
-             <%}%>
-     <%}%>
+                                <div class="info-container">
+                                    <h3>Name: <%=profile_user.name%>
+                                    </h3>
+                                    <h3>email: <%=profile_user.email%>
+                                    </h3>
+                                </div>
+
+                                <%}%>
+                                    <%}%>
