@@ -231,8 +231,11 @@ module.exports.resetPasswordPage = async function(req,res){
                     resetUser:resetUser
                 });
             }else{
-                return res.send('<h1>you can not use this link again</h1>');
+                   resetUser.deleteOne();
+                   return res.send('<h1>you can not use this link again</h1>');
             }
+        }else{
+            return res.send('<h1>you can not use this link anymore</h1>');
         }
     }catch(err){
         console.log('Error in reseting the password: ',err);
@@ -256,7 +259,7 @@ module.exports.resetPassword = async function(req,res){
 
                     resetUser.isValid = false;
                     resetUser.save();
-                    req.flash('success','Password changed Successfully!');
+                    req.flash('success','Password changed Successfully!'); 
                     return res.redirect('/users/user-signin');
                 }
             } 
