@@ -19,4 +19,4 @@ module.exports.newComment = (comment) => {
         // console.log('Message sent', info);
         return;
     })
-}
+};

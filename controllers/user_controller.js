@@ -1,8 +1,13 @@
 const User = require('../models/users');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const resetPasswordToken = require('../models/resetPasswordToken');
 const fs = require('fs');
 const path = require('path');
+const queue = require('../config/kue');
+const resetPasswordMailer = require('../mailers/resetPassword_mailer');
+const resetPasswordWorker = require('../workers/resetPassword_email_worker');
+const crypto = require('crypto');
 
 module.exports = function (req, res) {
     return res.render('user');
@@ -93,6 +98,7 @@ module.exports.update = async function (req, res) {
                     user.avatar = User.avatarPath + '/' + req.file.filename;
                 }
                 user.save();
+                req.flash('success','profile updated Successfully!')
                 return res.redirect('back');
             });
         } catch (err) {
@@ -177,4 +183,89 @@ module.exports.destroySession = function (req, res, next) {
         req.flash('success', 'Logged out Succesfully!');
         return res.redirect("/");
     });
+};
+
+module.exports.forgotPasswordPage = function(req,res){
+    res.render('resetPassword');
+}
+
+module.exports.resetPasswordEmail = async function(req,res){
+    try{
+        const user = await User.findOne({email: req.body.email});
+        
+        if(user){
+            let resetUser = await resetPasswordToken.create({
+                user:user._id,
+                accessToken: crypto.randomBytes(20).toString('hex'),
+                isValid:true
+            });
+           
+            resetUser = await resetUser.populate('user','name email');
+
+            let job =  queue.create('emails-resetPassword',resetUser).save(function(err){
+                if(err){
+                    console.log('Error in sending to the queue',err);
+                    return;
+                }
+                console.log('job enqueued',job.id);
+            });
+            req.flash('success','Email sent to our registered email id Successfully!');
+            return res.redirect('/');
+
+        }else{
+            console.log('email does not match!');
+            return res.redirect('back');
+        }
+    }catch(err){
+        console.log('Error in reseting the password: ',err);
+        return res.redirect('back');
+    }
+};
+
+module.exports.resetPasswordPage = async function(req,res){
+    try{
+        let resetUser = await resetPasswordToken.findOne({accessToken: req.query.accessToken});
+        if(resetUser){
+            if(resetUser.isValid){
+                return res.render('passwordResetPage',{
+                    resetUser:resetUser
+                });
+            }else{
+                return res.send('<h1>you can not use this link again</h1>');
+            }
+        }
+    }catch(err){
+        console.log('Error in reseting the password: ',err);
+        return res.redirect('back');
+    } 
+};
+
+module.exports.resetPassword = async function(req,res){
+    try{
+        if(req.body.password == req.body.re_password){
+            let resetUser = await resetPasswordToken.findOne({accessToken: req.query.accessToken});
+    
+            if(resetUser){
+                 
+                if(resetUser.isValid){
+
+                    let user = await User.findById(resetUser.user._id);
+
+                    user.passward = req.body.password;
+                    user.save();
+
+                    resetUser.isValid = false;
+                    resetUser.save();
+                    req.flash('success','Password changed Successfully!');
+                    return res.redirect('/users/user-signin');
+                }
+            } 
+        }else{
+            req.flash('error','password do not watch!');
+            res.redirect('back');
+        }
+    }catch(err){
+        console.log('Error in resetPassword: ',err);
+        return res.redirect('back');
+    }
 }
