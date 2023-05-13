@@ -1,4 +1,3 @@
-const { renderSync } = require('node-sass');
 const User = require('../../../models/users');
 const jwt = require('jsonwebtoken');
 

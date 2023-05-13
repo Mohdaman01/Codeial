@@ -13,6 +13,8 @@
                     deletePost($(' .delete-post-button', newPost));
                     new PostComments(data.data.post._id);
 
+                    new ToggleLike($(' .toggle-like-button', newPost));
+
                     new Noty({
                         theme: 'metroui',
                         text: "Post published!",
@@ -39,6 +41,12 @@
             ${post.content}
             <br>
             <small>${post.user.name}</small>
+            <br>
+            <small>
+
+                <a href="/likes/toggle/?id=${post._id}&type=post" class="toggle-like-button" data-likes="0">0 Likes</a>
+
+            </small>
         </p>
         <div class="post-comments">
 
