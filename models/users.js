@@ -23,7 +23,19 @@ const userSchema = mongoose.Schema({
     },
     avatarGoogle:{
         type:String
-    }
+    },
+    friends: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'friend'
+        }
+    ],
+    friendRequests: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'friendRequests'
+        }
+    ]
 },{
     timestamps:true
 });

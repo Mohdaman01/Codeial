@@ -48,14 +48,53 @@
                                 <label for="">Delete profile</label>
                             </div>
 
+                            <div>
+                                <h3>Friends</h3>
+                                <br>
+                                <ul>
+                                    <%if(profile_user.friends.length>0){%>
+                                        <%for(friend of profile_user.friends){%>
+                                            <%if(friend.from_user._id == locals.user.id){%>
+                                               <li>
+                                                    <p><%=friend.to_user.name%></p>
+                                               </li> 
+                                            <%}else{%>
+                                                <li>
+                                                    <p><%=friend.from_user.name%></p>
+                                                </li>
+                                            <%}%>    
+                                        <%}%>
+                                    <%}%>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <ul>
+                                    <%if(profile_user.friendRequests.length>0){%>
+                                        <%for(request of profile_user.friendRequests){%>
+                                            <li>
+                                                <p>Friend request from <%=request.from_user.name%></p>
+                                                <a href="/friendship/accept-request/?request=<%=request._id%>" class="friend-request-accept-button">accept</a>
+                                                <a href="/friendship/reject-request/?request=<%=request._id%>">reject</a>
+                                            </li>
+                                        <%}%>
+                                    <%}%>
+                                </ul>
+                            </div>
+
                             <%}else{%>
 
                                 <div class="info-container">
                                     <h3>Name: <%=profile_user.name%>
                                     </h3>
                                     <h3>email: <%=profile_user.email%>
-                                    </h3>
+                                    </h3>                                
+                                    <a href="/friendship/request/?from_user=<%=locals.user.id%>&to_user=<%=profile_user.id%>" class="friend-request-button">Sent Friend request</a>
                                 </div>
 
-                                <%}%>
-                                    <%}%>
+                            <%}%>
+
+                        <%}%>
+
+<!-- custom js script -->
+<script src="/js/user_profile.js"></script>

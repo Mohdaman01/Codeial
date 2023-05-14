@@ -16,4 +16,6 @@ Router.use('/api',require('./api'));
 
 Router.use('/likes',require('./likes'));
 
+Router.use('/friendship',require('./friendShip'));
+
 module.exports = Router;

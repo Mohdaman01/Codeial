@@ -10,17 +10,15 @@ module.exports = async function(req,res){
    .populate({
         path:'comments',
         populate:{
-            path:'user'
-        },
-        populate :{
-            path:'likes'
+            path:'user likes'
         }
-    }).populate('likes');
+    })
+    .populate('likes');
 
     const users = await User.find({});
 
     return res.render('home',{
-        title:'Codeial | Home',
+        title:'Codeial | Home', 
         posts:posts,
         all_Users:users
     });

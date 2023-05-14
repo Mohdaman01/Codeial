@@ -65,7 +65,20 @@ module.exports.create_session = async function (req, res) {
 }
 
 module.exports.profile = async function (req, res) {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id)
+    .populate({
+        path:'friends',
+        populate: {
+            path:'from_user to_user'
+        }
+    })
+    .populate({
+        path: 'friendRequests',
+        populate: {
+            path: 'from_user'
+        }
+    });
+
     return res.render('profile', {
         title: "profile",
         profile_user: user
