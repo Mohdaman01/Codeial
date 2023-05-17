@@ -58,4 +58,20 @@ module.exports.accept_request = async function(req,res){
         console.log('error in accepting request: ',err);
         return res.redirect('back');
     }
+};
+
+module.exports.reject_request = async function(req,res){
+    try{
+        let request = await FriendRequests.findById(req.query.request);
+        let user = await User.findById(request.to_user);
+        user.friendRequests.pull(request._id);
+        user.save();
+        request.deleteOne();
+
+        return res.redirect('back');
+
+    }catch(err){
+        console.log('error in rejecting the request: ',err);
+        return res.redirect('back');
+    }
 }
