@@ -12,7 +12,7 @@
         </small>
         <small>
             <%if(locals.user){%>
-                <a href="/likes/toggle/?id=<%=comment._id%>&type=comment" class="toggle-like-button" data-likes="<%= comment.likes.length %>"><%=comment.likes.length%> Likes</a>
+                <a href="/likes/toggle/?id=<%=comment._id%>&type=comment" class="toggle-like-button" data-likes="<%= comment.likes.length %>"><%=comment.likes.length%> <i class="fa-solid fa-thumbs-up"></i></a>
             <%}else{%>
                 <%=comment.likes.length%> Likes
             <%}%>  

@@ -5,17 +5,20 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const db = require('./config/mongoose');
+const port  = 3000;
+
 const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMiddleware = require('./config/middleware');
-const port  = 3000;
+
+const socket = require('./socket');
 
 app.use(sassMiddleware({
     src:'./assets/scss', 
     dest:'./assets/css',
     debug:true,
-    outputStyle:'extended',
+    outputStyle:'extended', 
     prefix:'/css'   
 }));
 

@@ -44,7 +44,7 @@
             <br>
             <small>
 
-                <a href="/likes/toggle/?id=${post._id}&type=post" class="toggle-like-button" data-likes="0">0 Likes</a>
+                <a href="/likes/toggle/?id=${post._id}&type=post" class="toggle-like-button" data-likes="0">0 <i class="fa-solid fa-thumbs-up"></i></a>
 
             </small>
         </p>
