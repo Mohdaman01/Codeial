@@ -5,8 +5,13 @@
   text-decoration: none;
   list-style: none; }
 
-body i:hover {
-  color: red; }
+body {
+  font-family: 'Open Sans', sans-serif; }
+  body i:hover {
+    color: red; }
+  body #layout-main {
+    height: 100%;
+    overflow: auto; }
 
 .text-center {
   text-align: center; }

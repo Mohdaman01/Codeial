@@ -9,7 +9,14 @@ body{
     i:hover{
         color: red;
     }
+    font-family: 'Open Sans', sans-serif;
+    
+    #layout-main{
+        height: 100%;
+        overflow: auto;
+    }
 }
+
 
 .text-center{
     text-align: center;

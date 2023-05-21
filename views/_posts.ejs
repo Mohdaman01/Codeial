@@ -1,38 +1,42 @@
 <head>
     <link rel="stylesheet" href="/css/_posts.css">
 </head>
-<li id="post-<%=post._id%>">
-    <p>
-        <%if(locals.user && locals.user.id == post.user.id){%>
-            <small><a href="/posts/destroy/<%=post.id%>" class="delete-post-button"><i class="fa-solid fa-circle-xmark"></i></a></small>
-        <%}%>
-        <h3><%=post.content%></h3>
-        <br>
-        <small><%=post.user.name%></small>
-        <small>
-            <%if(locals.user){%>
-                <a href="/likes/toggle/?id=<%=post._id%>&type=post" class="toggle-like-button" data-likes="<%= post.likes.length %>"><%=post.likes.length%> <i class="fa-solid fa-thumbs-up"></i></a>
-            <%}else{%>
-                <%=post.likes.length%> Likes
-            <%}%>  
-        </small>
-              
-    </p>
-    <div class="post-comments">
-        <%if(locals.user){%>
-            <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="post">
-                <input type="text" name="content" placeholder="Type here to add comment"/>
-                <input type="hidden" name="post" value="<%=post._id%>">
-                <input type="submit" value="Add Comment">
-            </form>
-        <%}%>
+<li id="post-<%=post._id%>" class="post">
 
-        <div class="post-comments-list">
-            <ul id="post-comments-<%=post._id%>">
-                <%for(comment of post.comments){%>
-                    <%-include('_comments')-%>
-                <%}%>
-            </ul>
+    <%if(locals.user && locals.user.id == post.user.id){%>
+        <span><a href="/posts/destroy/<%=post.id%>" class="delete-post-button"><i class="fa-solid fa-circle-xmark"></i></a></span>
+    <%}%>
+    <div>
+        <p>
+            <p class="post-content"><%=post.content%></p>
+            
+            <small class="post-by">By <%=post.user.name%></small>
+            <span>
+                <%if(locals.user){%>
+                    <a href="/likes/toggle/?id=<%=post._id%>&type=post" class="toggle-like-button" data-likes="<%= post.likes.length %>"><%=post.likes.length%> <i class="fa-solid fa-thumbs-up"></i></a>
+                <%}else{%>
+                    <%=post.likes.length%> <i class="fa-solid fa-thumbs-up"></i>
+                <%}%>  
+            </span>
+                  
+        </p>
+        <div class="post-comments">
+            <%if(locals.user){%>
+                <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="post" class="post-form">
+                    <input type="text" name="content" placeholder="Type here to add comment"/>
+                    <input type="hidden" name="post" value="<%=post._id%>">
+                    <input type="submit" value="Add Comment">
+                </form>
+            <%}%>
+    
+            <div class="post-comments-list">
+                <ul id="post-comments-<%=post._id%>">
+                    <%for(comment of post.comments){%>
+                        <%-include('_comments')-%>
+                    <%}%>
+                </ul>
+            </div>
         </div>
     </div>
+    
 </li>

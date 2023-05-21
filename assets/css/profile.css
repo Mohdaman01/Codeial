@@ -1,3 +1,23 @@
+body {
+  background-color: lightgray; }
+
+.profile-container {
+  display: flex;
+  padding-top: 5em;
+  padding-left: 10%;
+  margin-left: 25%; }
+  .profile-container .profile-info {
+    margin-right: 1em; }
+  .profile-container .profile-friends {
+    margin-left: 15%;
+    padding-left: 2em;
+    padding-top: 3em;
+    font-size: 1.2em;
+    position: fixed;
+    height: 100%;
+    right: 6em;
+    border-left: 2px solid gray; }
+
 .dp-container {
   margin: 2em 0;
   display: flex;
@@ -5,7 +25,7 @@
   align-items: center; }
   .dp-container .dp {
     width: 150px;
-    border: 5px solid #2a14d2;
+    border: 5px solid #1483d2;
     border-radius: 15px;
     margin-bottom: 1em; }
   .dp-container i {
@@ -21,7 +41,7 @@
     margin-bottom: .8em;
     width: 300px;
     height: 25px;
-    border: 2px solid lightgrey;
+    border: 2px solid grey;
     border-radius: 5px;
     padding-left: .8em; }
   .info-container form input[type=file] {
@@ -36,9 +56,9 @@
     width: 60px;
     padding: 0;
     cursor: pointer;
-    border: 2px solid lightgray; }
+    border: 2px solid gray; }
   .info-container .delete-user-button {
-    background-color: lightgray;
+    background-color: gray;
     width: 120px;
     height: 30px;
     border-radius: 20px;
@@ -46,3 +66,7 @@
     padding: 5px 0; }
     .info-container .delete-user-button:hover {
       background-color: darkgrey; }
+
+@media screen and (max-width: 900px) {
+  .profile-container {
+    margin-left: 5%; } }

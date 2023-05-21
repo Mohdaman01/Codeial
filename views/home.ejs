@@ -1,13 +1,12 @@
  <head>
     <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/chat_box.css">
  </head>
-<h1>Codeial home page</h1>
+
 <div id="home-container">
     <div class="create-post">
         <%if(locals.user){%>
         <form action="/posts/create" method="post" id="post-form">
-            <textarea name="content" id="text-content" cols="50" rows="6" placeholder="Write text here" required></textarea>
+            <textarea name="content" id="text-content" cols="55" rows="10" placeholder="Write text here" required></textarea>
             <br>
             <input type="submit" value="Post"/>
         </form>
@@ -22,15 +21,16 @@
         </div> 
     </div>
  
-
     <div class="users-container">
-        <h1>Users List</h1>
+        <h1>Users</h1>
+        <br>
         <ul>
-            <%for(user of all_Users){%>
-                <li><a href="/users/profile/<%=user.id%>"><%=user.name%></a></li>
+            <%for(users of all_Users){%>
+                <li><a href="/users/profile/<%=users.id%>"><%=users.name%></a></li>
             <%}%>
         </ul>
     </div> 
+    
     <%-include('_chat_box')-%>
 </div>
 
@@ -49,7 +49,7 @@
 
 <%if(locals.user) {%>
     <script>
-        new chatEngine('user-chat-box','<%= locals.user.email%>')
+        new chatEngine('user-chat-box','<%= locals.user.email%>','<%= locals.user.name%>')
     </script>
 <%}%>
 

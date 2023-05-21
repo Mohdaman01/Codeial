@@ -1,0 +1,24 @@
+#layout-footer{
+    color: white;
+    position:fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;  
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    a{
+        color: white;
+        text-decoration: none;
+    }
+
+    background: rgb(18, 41, 132);
+    padding: 5px 10px;
+  
+
+    .footer-nav{
+        ul{
+            list-style: none;
+        }
+    }
+}

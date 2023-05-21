@@ -1,7 +1,10 @@
 <head>
     <link rel="stylesheet" href="/css/profile.css">
 </head>
-<h1 class="text-center">Profile</h1>
+
+<div class="profile-container">
+
+    <div class="profile-info">
 <%if(locals.user){%>
     <%if(profile_user.avatar){%>
         <div class="dp-container">
@@ -45,27 +48,7 @@
                                     <a href="/users/delete-User/<%=profile_user.id%>"><i
                                             class="fa-solid fa-user-slash"></i></a><br>
                                 </div>
-                                <label for="">Delete profile</label>
-                            </div>
-
-                            <div>
-                                <h3>Friends</h3>
-                                <br>
-                                <ul>
-                                    <%if(profile_user.friends.length>0){%>
-                                        <%for(friend of profile_user.friends){%>
-                                            <%if(friend.from_user._id == locals.user.id){%>
-                                               <li>
-                                                    <p><%=friend.to_user.name%></p>
-                                               </li> 
-                                            <%}else{%>
-                                                <li>
-                                                    <p><%=friend.from_user.name%></p>
-                                                </li>
-                                            <%}%>    
-                                        <%}%>
-                                    <%}%>
-                                </ul>
+                                <label>Delete profile</label>
                             </div>
 
                             <div>
@@ -109,6 +92,38 @@
                             <%}%>
 
                         <%}%>
+    </div>
+    <%if(locals.user.id==profile_user.id){%>
+        <div class="profile-friends">
+            <h3>Friends</h3>
+            <br>
+            <ul>
+                <%if(profile_user.friends.length>0){%>
+                    <%for(friend of profile_user.friends){%>
+                        <%if(friend.from_user._id == locals.user.id){%>
+                        <li>
+                                <p><%=friend.to_user.name%></p>
+                        </li> 
+                        <%}else{%>
+                            <li>
+                                <p><%=friend.from_user.name%></p>
+                            </li>
+                        <%}%>    
+                    <%}%>
+                <%}%>
+            </ul>
+        </div>
+    <%}%>
+</div>
+<%-include('_chat_box')-%>
 
 <!-- custom js script -->
 <script src="/js/user_profile.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/chat_engine.js"></script>
+
+<%if(locals.user) {%>
+    <script>
+        new chatEngine('user-chat-box','<%= locals.user.email%>','<%= locals.user.name%>')
+    </script>
+<%}%>

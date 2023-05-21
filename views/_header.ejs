@@ -3,15 +3,17 @@
 </head>
 <header>
     <div id="header-container">
-        <h2>Codieal</h2>
+        <h2><a href="/" class="head">Codieal</a></h2>
+
         <div class="options-container">
             <%if(locals.user){%>
+                <div id="global-chat-toggle">Global Chat</div>
                 <a href="/"><i class="fa-solid fa-house"></i></a>
                 <a href="/users/profile/<%=locals.user.id%>"><i class="fa-solid fa-user"></i></a>
                 <a href="/users/logout-user"><i class="fa-solid fa-right-from-bracket"></i></a> 
             <%}else{%>
-                <a href="/users/user-signin">sign-in</a>
-                <a href="/users/user-signup">sign up</a>
+                <a href="/users/user-signin" id="signin">Sign In</a>
+                <a href="/users/user-signup" id="signup">Sign Up</a>
             <%}%>
         </div>
             

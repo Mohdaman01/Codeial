@@ -1,0 +1,18 @@
+.post-comment {
+  display: flex;
+  padding: .5em;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: .5em 0;
+  margin-left: 1em;
+  width: 350px;
+  background-color: lightgrey; }
+  .post-comment .delete-comment-button {
+    padding-right: .5em; }
+  .post-comment .comment-content {
+    padding: 0 .5em;
+    border-bottom: 2px solid darkgray;
+    padding-bottom: .5em;
+    margin-bottom: .3em; }
+  .post-comment .comment-by {
+    padding: 0 .5em; }

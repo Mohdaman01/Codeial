@@ -1,12 +1,67 @@
 #header-container{
     display: flex;
+    position: fixed;
+    width: 100%;
+    background-color: white;
     font-size: 1.5rem;
+    padding-top: .5em;
+    padding-left: .5em;
+    padding-bottom: .5em;
+    margin-bottom: 1em;
+    border-bottom: 3px solid lightgrey;
+    box-shadow: 2px 2px 4px 3px grey;
+
+    .head{
+            color: black;
+    }
+       
+
     .options-container{
         display: flex;
-        width:6em;
+        width:12em;
         padding-top: .2em;
         margin-left: auto;
         margin-right: 25px;
         justify-content: space-between; 
+
+        #global-chat-toggle{
+            font-size: .8em;
+            height: 2em;
+            color: white;
+            border: 1px solid black;
+            padding: .2em .2em;
+            padding-bottom: 5px;
+            border-radius: 10px;
+            background-color: rgb(18, 41, 132);
+            cursor: pointer;
+
+            &:hover{
+                background-color: red;
+            }
+        }
+
+        #signin{
+            font-size: .8em;
+            height: 2em;
+            margin-left: 4em;
+            color: white;
+            border: 2px solid black;
+            background-color: rgb(18, 41, 132);
+            padding-left: .4em;
+            width: 4em;
+            border-radius: 10px;
+        }
+         
+        #signup{
+            font-size: .8em;
+            height: 2em;
+            color: white;
+            border: 2px solid black;
+            background-color: rgb(18, 41, 132);
+            padding-left: .7em;
+            width: 5em;
+            border-radius: 10px;
+        }
+
     }
 } 

@@ -1,21 +1,27 @@
-<li id="comment-<%= comment._id %>">
-    <p>
-        <%if((locals.user && locals.user.id == comment.user.id)||locals.user && locals.user.id == post.user.id){%>
-        <small>
+<head>
+    <link rel="stylesheet" href="/css/_comment.css">
+</head>
+
+<li id="comment-<%= comment._id %>" class="post-comment">
+    <%if((locals.user && locals.user.id == comment.user.id)||locals.user && locals.user.id == post.user.id){%>
+        <span>
             <a href="/comments/destroy/<%=comment.id%>" class="delete-comment-button"><i class="fa-solid fa-circle-xmark"></i></a>
-        </small>
+        </span>
         <%}%>
-        <%=comment.content%>
-        <br>
-        <small>
-            <%=comment.user.name%>
-        </small>
-        <small>
-            <%if(locals.user){%>
-                <a href="/likes/toggle/?id=<%=comment._id%>&type=comment" class="toggle-like-button" data-likes="<%= comment.likes.length %>"><%=comment.likes.length%> <i class="fa-solid fa-thumbs-up"></i></a>
-            <%}else{%>
-                <%=comment.likes.length%> Likes
-            <%}%>  
-        </small>
-    </p> 
+    <div>
+        <p>
+            <p class="comment-content"><%=comment.content%></p> 
+            <small class="comment-by">
+                By <%=comment.user.name%>
+            </small>
+            <span>
+                <%if(locals.user){%>
+                    <a href="/likes/toggle/?id=<%=comment._id%>&type=comment" class="toggle-like-button" data-likes="<%= comment.likes.length %>"><%=comment.likes.length%> <i class="fa-solid fa-thumbs-up"></i></a>
+                <%}else{%>
+                    <%=comment.likes.length%> <i class="fa-solid fa-thumbs-up"></i>
+                <%}%>  
+            </span>
+        </p> 
+    </div>
+    
 </li>

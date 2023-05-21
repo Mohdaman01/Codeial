@@ -50,26 +50,24 @@ class PostComments{
 
     newCommentDom(comment){
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
-        return $(`<li id="comment-${ comment._id }">
-                        <p>
-                            
-                            <small>
-                                <a class="delete-comment-button" href="/comments/destroy/${comment._id}"><i class="fa-solid fa-circle-xmark"></i></a>
+        return $(`<li id="comment-${ comment._id }" class="post-comment">
+                        <span>
+                            <a class="delete-comment-button" href="/comments/destroy/${comment._id}"><i class="fa-solid fa-circle-xmark"></i></a>
+                        </span>
+                    <div>    
+                        <p> 
+                            <p class="comment-content">${comment.content}</p>
+                             
+                            <small class="comment-by">
+                                By ${comment.user.name}
                             </small>
-                            
-                            ${comment.content}
-                            <br>
-                            <small>
-                                ${comment.user.name}
-                            </small>
-                            <br>
-                            <small>
+                            <span>
 
                                 <a href="/likes/toggle/?id=${comment._id}&type=comment" class="toggle-like-button" data-likes="0">0 <i class="fa-solid fa-thumbs-up"></i></a>
 
-                            </small>
+                            </span>
                         </p>    
-
+                    </div>
                 </li>`); 
     }
 

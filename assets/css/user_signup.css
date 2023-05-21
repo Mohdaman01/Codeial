@@ -1,0 +1,41 @@
+body {
+  background-color: grey; }
+
+.signup-container {
+  padding: 1em;
+  text-align: center;
+  margin-top: 10em;
+  margin-left: 35%;
+  border: 3px solid lightgray;
+  background-color: white;
+  border-radius: 10px;
+  width: 400px; }
+  .signup-container h1 {
+    margin-bottom: 1em; }
+  .signup-container .signup-form {
+    margin-bottom: 1em; }
+    .signup-container .signup-form input {
+      height: 3em;
+      width: 200px;
+      border-radius: 10px;
+      border: 2px solid lightgray;
+      padding-left: .5em;
+      margin-bottom: .8em; }
+    .signup-container .signup-form input[type='submit'] {
+      background-color: #3a3a76;
+      color: white;
+      cursor: pointer;
+      width: 4em;
+      height: 2em;
+      padding-left: .1em;
+      border-radius: 10px;
+      border: none; }
+      .signup-container .signup-form input[type='submit']:hover {
+        background-color: red; }
+  .signup-container .google-login {
+    margin-bottom: 1em;
+    font-size: 25px; }
+
+@media screen and (max-width: 900px) {
+  .signup-container {
+    margin-left: 25%; } }

@@ -33,33 +33,32 @@
      }
 
      let newPostDom = function(post){
-        return $(`<li id="post-${post._id}">
-        <p>
-             
-            <small><a href="/posts/destroy/${post._id}" class="delete-post-button"><i class="fa-solid fa-circle-xmark"></i></a></small>
-            
-            ${post.content}
-            <br>
-            <small>${post.user.name}</small>
-            <br>
-            <small>
+        return $(`<li id="post-${post._id}" class="post">
+        <span><a href="/posts/destroy/${post._id}" class="delete-post-button"><i class="fa-solid fa-circle-xmark"></i></a></span>
+        <div>
+            <p>            
+                <p class="post-content">${post.content}</p>
+                <small class="post-by">By ${post.user.name}</small>
+                
+                <span>
 
-                <a href="/likes/toggle/?id=${post._id}&type=post" class="toggle-like-button" data-likes="0">0 <i class="fa-solid fa-thumbs-up"></i></a>
+                    <a href="/likes/toggle/?id=${post._id}&type=post" class="toggle-like-button" data-likes="0">0 <i class="fa-solid fa-thumbs-up"></i></a>
 
-            </small>
-        </p>
-        <div class="post-comments">
+                </span>
+            </p>
+            <div class="post-comments">
 
-                <form action="/comments/create" method="post">
-                    <input type="text" name="content" placeholder="Type here to add comment"/>
-                    <input type="hidden" name="post" value="${post._id}">
-                    <input type="submit" value="Add Comment">
-                </form>
-             
-            <div class="post-comments-list">
-                <ul id="post-comments-${post._id}">
-                     
-                </ul>
+                    <form id="post-${post._id}-comments-form" action="/comments/create" method="post" class="post-form">
+                        <input type="text" name="content" placeholder="Type here to add comment"/>
+                        <input type="hidden" name="post" value="${post._id}">
+                        <input type="submit" value="Add Comment">
+                    </form>
+                
+                <div class="post-comments-list">
+                    <ul id="post-comments-${post._id}">
+                        
+                    </ul>
+                </div>
             </div>
         </div>
     </li>`) 
