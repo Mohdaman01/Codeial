@@ -49,7 +49,7 @@
 
 <%if(locals.user) {%>
     <script>
-        new chatEngine('user-chat-box','<%= locals.user.email%>','<%= locals.user.name%>')
+        new chatEngine('user-chat-box','<%= locals.user.email%>','<%= locals.user.name%>','#global-chat-toggle')
     </script>
 <%}%>
 

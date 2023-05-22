@@ -18,4 +18,6 @@ Router.use('/likes',require('./likes'));
 
 Router.use('/friendship',require('./friendShip'));
 
+Router.use('/chat',require('./chat'));
+
 module.exports = Router;

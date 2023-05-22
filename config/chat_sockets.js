@@ -1,3 +1,4 @@
+const Chat  =  require('../models/chat');
 
 module.exports.chatSockets = function(socketServer){
 
@@ -22,8 +23,9 @@ module.exports.chatSockets = function(socketServer){
           io.in(data.chatroom).emit('user_join', data);
         });
 
-        socket.on('send-message', function(data){
-          // console.log(data);
+        socket.on('send-message', async function(data){
+          console.log(data);
+          await Chat.create(data);
           io.in(data.chatroom).emit('receive-message', data);
         });
 

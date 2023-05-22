@@ -1,18 +1,64 @@
-$('#global-chat-toggle').click(()=>{
-    $('#user-chat-box').toggle();
-})
+
 
 class chatEngine{
-    constructor(chatBoxId,userEmail,userName){
+    constructor(chatBoxId,userEmail,userName,globalChatToggle){
         this.chatBox = $(`#${chatBoxId}`);
         this.userEmail = userEmail;
         this.userName = userName;
+        this.globalChatToggle = $(globalChatToggle);
 
         this.socket = io('http://localhost:5000');
 
         if(this.userEmail){
             this.connectionHandler();
         }
+
+        let self = this;
+        let fetched = false;
+
+        this.globalChatToggle.click(()=>{
+            $('#user-chat-box').toggle();
+            
+            if(!fetched){
+                $.ajax({
+                    type: 'GET',
+                    url: '/chat/global-chat'
+                })
+                .done(function(data){
+                    // console.log(data);
+    
+                    
+    
+                    for(let chat of data.data){
+
+                        let newMessage = $('<li>');
+
+                        let messageType = 'other-message';
+
+                        if(chat.user_email == self.userEmail ){
+                            messageType = 'self-message';
+                        }
+    
+                        newMessage.append($('<span>', {
+                            'html' : chat.message
+                        }));
+    
+                        newMessage.append($('<small>', {
+                            'html' : chat.user_name
+                        }));
+
+                        newMessage.addClass(messageType);
+    
+                        $('#chat-messages-list').append(newMessage);
+                    }
+                        
+                })
+                .fail(function(errData){
+                    console.log('error in completing the request',errData);
+                })
+                fetched = true;
+            }
+        })
     }
 
     connectionHandler(){
@@ -33,10 +79,10 @@ class chatEngine{
         });
 
         $('#chat-message-input').keypress(function(e){
-            // console.log(e.key);
+           
             if(e.key == 'Enter'){
                let msg = $('#chat-message-input').val();
-            // console.log(msg);
+           
             if(msg !=''){
                 self.socket.emit('send-message', {
                     message: msg,
@@ -89,4 +135,5 @@ class chatEngine{
             $('#chat-messages-list').append(newMessage);
         })
     }
+
 }
