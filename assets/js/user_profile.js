@@ -9,7 +9,7 @@ $('.friend-request-button').click(function(e){
             theme: 'metroui',
             text: "Request sent",
             type: 'success',
-            layout: 'topRight',
+            layout: 'topLeft',
             timeout: 1500
             
         }).show();
@@ -22,6 +22,7 @@ $('.friend-request-button').click(function(e){
 
 $('.friend-request-accept-button').click(function(e){
     e.preventDefault();
+
     $.ajax({
         type: 'POST',
         url: $('.friend-request-accept-button').attr('href')
@@ -31,7 +32,7 @@ $('.friend-request-accept-button').click(function(e){
             theme: 'metroui',
             text: "Request accepted",
             type: 'success',
-            layout: 'topRight',
+            layout: 'topLeft',
             timeout: 1500
             
         }).show();
@@ -39,5 +40,7 @@ $('.friend-request-accept-button').click(function(e){
     })
     .fail(function(errData){
         console.log('error in accepting request: ',errData);
-    })
+    });
+
+    location.reload();
 })

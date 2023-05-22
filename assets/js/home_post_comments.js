@@ -34,7 +34,7 @@ class PostComments{
                         theme: 'relax',
                         text: "Comment published!",
                         type: 'success',
-                        layout: 'topRight',
+                        layout: 'topLeft',
                         timeout: 1500
                         
                     }).show();
@@ -43,7 +43,7 @@ class PostComments{
                     console.log(error.responseText);
                 }
             });
-
+            $('.comment-content-input').val('');
         });
     }
 
@@ -86,7 +86,7 @@ class PostComments{
                         theme: 'relax',
                         text: "Comment Deleted",
                         type: 'success',
-                        layout: 'topRight',
+                        layout: 'topLeft',
                         timeout: 1500
                         
                     }).show();

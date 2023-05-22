@@ -19,11 +19,10 @@
                         theme: 'metroui',
                         text: "Post published!",
                         type: 'success',
-                        layout: 'topRight',
+                        layout: 'topLeft',
                         timeout: 1500
-                        
                     }).show();
-                },
+                },  
                 error: function(error){
                     console.log(error.responseText);
                 }
@@ -80,7 +79,7 @@
                         theme: 'metroui',
                         text: "Post Deleted",
                         type: 'success',
-                        layout: 'topRight',
+                        layout: 'topLeft',
                         timeout: 1500
                         
                     }).show();

@@ -57,22 +57,9 @@
                                     <h3>Name: <%=profile_user.name%>
                                     </h3>
                                     <h3>email: <%=profile_user.email%>
-                                    </h3>                                          
+                                    </h3>                                            
                                     <a href="/friendship/request/?from_user=<%=locals.user.id%>&to_user=<%=profile_user.id%>" class="friend-request-button">Sent Friend request</a>
-  
-                                    <!-- <%let friend = false%>    -->
-
-                                    <!-- <%for(friend of profile_user.friends){%>
-                                        <%if(friend.from_user._id == locals.user.id){%>
-                                            <%friend=true%>
-                                            <%break%>
-                                        <%}%>                                            
-                                    <%}%> 
-                                     
-                                    <%if(friend==false){%>                                         -->
-                                    <!-- <%}else{%>
-                                        <p>Already a Friend</p>
-                                    <%}%>                        -->
+                                                         
                                 </div>
 
                             <%}%>
@@ -129,6 +116,6 @@
 
 <%if(locals.user) {%>
     <script>
-        new chatEngine('user-chat-box','<%= locals.user.email%>','<%= locals.user.name%>')
+        new chatEngine('user-chat-box','<%= locals.user.email%>','<%= locals.user.name%>','#global-chat-toggle')
     </script>
 <%}%>

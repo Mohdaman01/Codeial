@@ -24,7 +24,7 @@ module.exports.chatSockets = function(socketServer){
         });
 
         socket.on('send-message', async function(data){
-          console.log(data);
+          // console.log(data);
           await Chat.create(data);
           io.in(data.chatroom).emit('receive-message', data);
         });
