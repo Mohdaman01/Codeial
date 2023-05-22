@@ -51,23 +51,9 @@
                                 <label>Delete profile</label>
                             </div>
 
-                            <div>
-                                <ul>
-                                    <%if(profile_user.friendRequests.length>0){%>
-                                        <%for(request of profile_user.friendRequests){%>
-                                            <li>
-                                                <p>Friend request from <%=request.from_user.name%></p>
-                                                <a href="/friendship/accept-request/?request=<%=request._id%>" class="friend-request-accept-button">accept</a>
-                                                <a href="/friendship/reject-request/?request=<%=request._id%>">reject</a>
-                                            </li>
-                                        <%}%>
-                                    <%}%>
-                                </ul>
-                            </div>
-
                             <%}else{%>
 
-                                <div class="info-container">
+                                <div class="other-info-container">
                                     <h3>Name: <%=profile_user.name%>
                                     </h3>
                                     <h3>email: <%=profile_user.email%>
@@ -94,25 +80,44 @@
                         <%}%>
     </div>
     <%if(locals.user.id==profile_user.id){%>
-        <div class="profile-friends">
-            <h3>Friends</h3>
-            <br>
-            <ul>
-                <%if(profile_user.friends.length>0){%>
-                    <%for(friend of profile_user.friends){%>
-                        <%if(friend.from_user._id == locals.user.id){%>
-                        <li>
-                                <p><%=friend.to_user.name%></p>
-                        </li> 
-                        <%}else{%>
+        <div class="profile-friends-container">
+            <div class="profile-friends">
+                <h3>Friends</h3>
+                <ul>
+                    <%if(profile_user.friends.length>0){%>
+                        <%for(friend of profile_user.friends){%>
+                            <%if(friend.from_user._id == locals.user.id){%>
                             <li>
-                                <p><%=friend.from_user.name%></p>
-                            </li>
-                        <%}%>    
+                                    <p><%=friend.to_user.name%></p>
+                            </li> 
+                            <%}else{%>
+                                <li>
+                                    <p><%=friend.from_user.name%></p>
+                                </li>
+                            <%}%>    
+                        <%}%>
                     <%}%>
-                <%}%>
-            </ul>
+                </ul>
+            </div>
+    
+            <div class="profile-friends-requests">
+                <h3>Friends Requests</h3>
+                <ul>
+                    <%if(profile_user.friendRequests.length>0){%>
+                        <%for(request of profile_user.friendRequests){%>
+                            <li>
+                                <p>From <%=request.from_user.name%></p>
+                                <div class="request-options">
+                                    <a href="/friendship/accept-request/?request=<%=request._id%>" class="friend-request-accept-button">accept</a>
+                                    <a href="/friendship/reject-request/?request=<%=request._id%>">reject</a>
+                                </div>
+                            </li>
+                        <%}%>
+                    <%}%>
+                </ul>
+            </div>
         </div>
+        
     <%}%>
 </div>
 <%-include('_chat_box')-%>
